@@ -46,7 +46,7 @@ if(isset($_POST['button'])){
             </div>
             <button name="button" >login</button>
             <div class="check-cont" >
-            <p>if you don't have an account <a href="./register.php">sign up</a></p>
+            <!-- <p>if you don't have an account <a href="./register.php">sign up</a></p> -->
             </div>
         </form>
     </div>

@@ -66,6 +66,9 @@ body {
   border: 2px solid #b648f2;
   color: #b648f2;
 }
+.form-style div {
+  width: 100%;
+}
 .form-style select {
   width: 100%;
   padding: 10px;
