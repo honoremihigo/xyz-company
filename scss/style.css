@@ -188,9 +188,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 .dash-cont .count-card-cont .count-card {
-  width: 450px;
+  width: 350px;
   padding: 30px;
   display: flex;
   flex-direction: column-reverse;
@@ -294,8 +296,8 @@ body {
 }
 
 .search-form-style input {
-  width: 200px;
-  padding: 10px 5px;
+  width: 300px;
+  padding: 10px 9px;
   outline: none;
   border: 2px solid grey;
   border-radius: 10px;
@@ -306,10 +308,40 @@ body {
 }
 .search-form-style button {
   background: #b648f2;
-  height: 100%;
   padding: 10px 5px;
   width: 120px;
   color: white;
   border: none;
   border-radius: 10px;
+}
+
+.search-form-cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.date-search-style {
+  display: flex;
+  gap: 20px;
+  align-items: end;
+}
+.date-search-style div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.date-search-style div input {
+  width: 150px;
+}
+.date-search-style div select {
+  padding: 10px;
+  outline: none;
+  border-radius: 10px;
+  border: 2px solid grey;
+}
+.date-search-style div select:focus {
+  border: 2px solid #b648f2;
+  color: #b648f2;
 }/*# sourceMappingURL=style.css.map */

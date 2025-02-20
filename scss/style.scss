@@ -41,6 +41,9 @@ body {
   }
 }
 
+
+
+
 .form-style {
   // border: 1px solid red;
   padding: 25px;
@@ -194,9 +197,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
     .count-card{
       // border: 1px solid red;
-      width: 450px;
+      width: 350px;
       padding: 30px;
       display: flex;
       flex-direction: column-reverse;
@@ -309,8 +314,8 @@ body {
 .search-form-style{
   // border: 1px solid red;
   input{
-    width: 200px;
-    padding: 10px 5px;
+    width: 300px;
+    padding: 10px 9px;
     outline: none;
     border: 2px solid grey;
     border-radius: 10px;
@@ -321,11 +326,42 @@ body {
   }
   button{
     background: $clr-1;
-    height: 100%;
     padding: 10px 5px;
     width: 120px;
     color: white;
     border: none;
     border-radius: 10px;
+  }
+}
+
+.search-form-cont{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+
+.date-search-style{
+  display: flex;
+  gap: 20px;
+  align-items: end;
+  div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    input{
+      width: 150px;
+    }
+    select{
+      padding: 10px;
+      outline: none;
+      border-radius: 10px;
+      border: 2px solid grey;
+      &:focus {
+        border: 2px solid $clr-1;
+        color: $clr-1;
+      }
+    }
   }
 }

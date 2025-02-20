@@ -30,7 +30,7 @@ if (isset($_POST['add'])) {
 
 if (isset($_POST['del'])) {
     $id = $_POST['id'];
-    $results = mysqli_query($conn,"DELETE FROM employee WHERE EmployeeId= '$id'");
+    $results = mysqli_query($conn, "DELETE FROM employee WHERE EmployeeId= '$id'");
     if ($results) {
         echo "<script>
         alert('candidate deleted sucessfully')
@@ -41,6 +41,20 @@ if (isset($_POST['del'])) {
         alert('candidate deleteing failed')
         </script>";
     }
+}
+?>
+
+<?php
+if (isset($_POST['search'])) {
+
+    $searchTerm = mysqli_real_escape_string($conn, $_POST['searchitem']);
+    $results = mysqli_query($conn, "SELECT * FROM employee 
+    WHERE FirstName LIKE '$searchTerm%' OR LastName LIKE '$searchTerm%' 
+    OR Gender LIKE '$searchTerm%' OR PhoneNumber LIKE '%$searchTerm%' OR
+    Department LIKE '$searchTerm%' 
+    ORDER BY FirstName ASC");
+    $employee = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $empCount = mysqli_num_rows($results);
 }
 ?>
 
@@ -101,10 +115,10 @@ if (isset($_POST['del'])) {
                 <button name="add">add candidate</button>
             </form>
         </div>
-        <div>
-            <form action="" class="search-form-style" >
-                <input type="search" placeholder="search by name">
-                <button>search</button>
+        <div class=" search-form-cont ">
+            <form action="" class="search-form-style" method="post" >
+                <input type="search" placeholder="search by name" name="searchitem">
+                <button name="search">search</button>
             </form>
         </div>
         <?php if ($empCount > 0) { ?>
@@ -127,17 +141,17 @@ if (isset($_POST['del'])) {
                         <td><?php echo $emp['PhoneNumber'] ?></td>
                         <td><?php echo $emp['Department'] ?></td>
                         <td class="td">
-                            <form action="" method="post" >
-                                <input type="hidden" value="<?php  echo $emp['EmployeeId'] ?>" name="id" >
-                                <button name="del" >delete</button>
+                            <form action="" method="post">
+                                <input type="hidden" value="<?php echo $emp['EmployeeId'] ?>" name="id">
+                                <button name="del">delete</button>
                             </form>
-                            <a href="./editEmployee.php?id=<?php echo $emp['EmployeeId']?>">edit</a>
+                            <a href="./editEmployee.php?id=<?php echo $emp['EmployeeId'] ?>">edit</a>
                         </td>
                     </tr>
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <p>no candidate added yet</p>
+            <p>no candidate found</p>
         <?php } ?>
     </div>
 </body>

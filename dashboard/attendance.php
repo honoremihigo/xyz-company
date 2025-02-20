@@ -1,14 +1,19 @@
 <?php
 include('../auth/auth.php');
 
+$date = date('Y-m-d');
 $results = mysqli_query($conn, "SELECT * FROM employee ORDER BY FirstName ASC ");
 $employees = mysqli_fetch_all($results, MYSQLI_ASSOC);
-$empCount = mysqli_num_rows($results);
+$attendCount = mysqli_num_rows($results);
 $count = 1;
 
 $run_attendance_query = mysqli_query($conn, "SELECT * FROM employee INNER JOIN attendance ON employee.EmployeeId = attendance.EmployeeId");
 $attendances = mysqli_fetch_all($run_attendance_query, MYSQLI_ASSOC);
+$run_attendance_query = mysqli_query($conn, "SELECT * FROM employee INNER JOIN attendance ON employee.EmployeeId = attendance.EmployeeId");
+$attendances = mysqli_fetch_all($run_attendance_query, MYSQLI_ASSOC);
 $attendCount = mysqli_num_rows($run_attendance_query);
+
+
 
 if (isset($_POST['add'])) {
     $empId = htmlspecialchars($_POST['empId']);
@@ -32,7 +37,7 @@ if (isset($_POST['add'])) {
 
 if (isset($_POST['del'])) {
     $id = $_POST['id'];
-    $results = mysqli_query($conn,"DELETE FROM attendance WHERE AttendanceId= '$id'");
+    $results = mysqli_query($conn, "DELETE FROM attendance WHERE AttendanceId= '$id'");
     if ($results) {
         echo "<script>
         alert('attendance deleted sucessfully')
@@ -47,6 +52,37 @@ if (isset($_POST['del'])) {
 ?>
 
 
+<?php
+if (isset($_POST['search'])) {
+
+    $searchTerm = mysqli_real_escape_string($conn, $_POST['searchitem']);
+    $run_attendance_query = mysqli_query($conn, "SELECT * FROM employee 
+    INNER JOIN attendance ON employee.EmployeeId = attendance.EmployeeId 
+    WHERE employee.FirstName LIKE '%$searchTerm%' OR employee.LastName LIKE '%$searchTerm%' 
+    OR employee.Gender LIKE '$searchTerm%' OR employee.PhoneNumber LIKE '%$searchTerm%' OR
+    employee.Department LIKE '$searchTerm' 
+    ORDER BY employee.FirstName ASC");
+    $attendances = mysqli_fetch_all($run_attendance_query, MYSQLI_ASSOC);
+}
+?>
+
+
+<?php
+
+if (isset($_POST['filter'])) {
+    $empId = mysqli_real_escape_string($conn, $_POST['empId']);
+    $start_date = mysqli_real_escape_string($conn, $_POST['startdate']);
+    $end_date = mysqli_real_escape_string($conn, $_POST['enddate']);
+    $run_attendance_query = mysqli_query($conn, "SELECT *
+    FROM attendance A
+    INNER JOIN employee E ON A.EmployeeId = E.EmployeeId
+    WHERE A.EmployeeId = '$empId'
+    AND A.Date BETWEEN '$start_date' AND '$end_date'
+    ORDER BY A.Date ASC");
+    $attendances = mysqli_fetch_all($run_attendance_query, MYSQLI_ASSOC);
+    $attendCount = mysqli_num_rows($run_attendance_query);
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,10 +133,30 @@ if (isset($_POST['del'])) {
                 <button name="add">add attendance</button>
             </form>
         </div>
-        <div>
-            <form action="" class="search-form-style" >
-                <input type="search" placeholder="search by name">
-                <button>search</button>
+        <div class="search-form-cont">
+            <form action="" class="search-form-style" method="post">
+                <input type="search" placeholder="search" name="searchitem">
+                <button name="search">search</button>
+            </form>
+            <form action="" class="search-form-style date-search-style " method="post">
+                <div>
+                    <label for="">employee:</label>
+                    <select name="empId" id="">
+                        <option value="" selected disabled>choose employee</option>
+                        <?php foreach ($attendances as $emp) { ?>
+                            <option value="<?php echo $emp['EmployeeId'] ?>"><?php echo $emp['FirstName'] ?> <?php echo $emp['LastName'] ?> </option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div>
+                    <label for="">from:</label>
+                    <input type="date" placeholder="search by date" name="startdate" max="<?php echo $date ?>" >
+                </div>
+                <div>
+                    <label for="">to:</label>
+                    <input type="date" placeholder="search by date" name="enddate" min="<?php echo $date ?>" >
+                </div>
+                <button name="filter">search by date</button>
             </form>
         </div>
         <?php if ($attendCount > 0) { ?>
@@ -115,6 +171,7 @@ if (isset($_POST['del'])) {
                     <th>date</th>
                     <th>action</th>
                 </tr>
+
                 <?php foreach ($attendances as $emp) { ?>
                     <tr>
                         <td><?php echo $count++ ?></td>
@@ -122,7 +179,7 @@ if (isset($_POST['del'])) {
                         <td><?php echo $emp['Gender'] ?></td>
                         <td><?php echo $emp['Status'] ?></td>
                         <td><?php echo $emp['CheckInTime'] ?></td>
-                        <td><?php echo $emp['CheckOutTime'] ?></td>
+                        <td><?php echo $emp['CheckOutTime'] =="00:00:00"? "not checked out yet": $emp['CheckOutTime'] ?></td>
                         <td><?php echo $emp['date'] ?></td>
                         <td class="td">
                             <form action="" method="post">
@@ -135,9 +192,11 @@ if (isset($_POST['del'])) {
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <p>no candidate added yet</p>
+            <p>no candidate found</p>
         <?php } ?>
     </div>
+
+    </script>
 </body>
 
 </html>
