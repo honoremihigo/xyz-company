@@ -4,6 +4,29 @@ $id = $_GET['id'];
 
 $query = mysqli_query($conn, "SELECT * FROM employee WHERE EmployeeId=$id");
 $data = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
+
+if(isset($_POST['edit'])){
+    $fname = htmlspecialchars($_POST['fname']);
+    $lname = htmlspecialchars($_POST['lname']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $gender = htmlspecialchars($_POST['gender']);
+    $dob = htmlspecialchars($_POST['dob']);
+    $phone = htmlspecialchars($_POST['phone']);
+    $department = htmlspecialchars($_POST['department']);
+    $error = mysqli_error($conn);
+    $query = mysqli_query($conn, "UPDATE employee SET FirstName='$fname' , LastName='$lname', Gender='$gender', DOB='$dob', PhoneNumber='$phone', Department='$department' WHERE EmployeeId=$id ");
+    if ($query) {
+        echo "<script>
+        alert('employee editing sucessfully')
+        window.location.href = './employee.php'
+        </script>";
+    } else {
+        echo "<script>
+        alert('employee editting failed :')
+        </script> $error ";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +68,9 @@ $data = mysqli_fetch_all($query, MYSQLI_ASSOC);
                 </div>
                 <div>
                     <label for="">email:</label>
-                    <input type="text" value="<?php echo $emp['Department'] ?>" required name="email">
+                    <input type="text" value="<?php echo $emp['Department'] ?>" required name="department">
                 </div>
-                <button name="add">edit candidate</button>
+                <button name="edit">edit candidate</button>
             </form>
         <?php } ?>
         <a href="./employee.php">go back</a>

@@ -190,6 +190,26 @@ body {
     border-radius: 20px;
     border: none;
   }
+  .count-card-cont{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .count-card{
+      // border: 1px solid red;
+      width: 450px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column-reverse;
+      background-color: white;
+      box-shadow: 1px 1px 15px #0000002b;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      h3{
+        color: $clr-1;
+      }
+    }
+  }
 }
 
 .report-card-cont {
@@ -283,4 +303,29 @@ body {
 .showForm {
   opacity: 1;
   pointer-events: all;
+}
+
+
+.search-form-style{
+  // border: 1px solid red;
+  input{
+    width: 200px;
+    padding: 10px 5px;
+    outline: none;
+    border: 2px solid grey;
+    border-radius: 10px;
+    &:focus {
+      border: 2px solid $clr-1;
+      color: $clr-1;
+    }
+  }
+  button{
+    background: $clr-1;
+    height: 100%;
+    padding: 10px 5px;
+    width: 120px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+  }
 }

@@ -97,6 +97,12 @@ if (isset($_POST['del'])) {
                 <button name="add">add attendance</button>
             </form>
         </div>
+        <div>
+            <form action="" class="search-form-style" >
+                <input type="search" placeholder="search by name">
+                <button>search</button>
+            </form>
+        </div>
         <?php if ($attendCount > 0) { ?>
             <table class="table-style">
                 <tr>

@@ -184,6 +184,25 @@ body {
   border-radius: 20px;
   border: none;
 }
+.dash-cont .count-card-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dash-cont .count-card-cont .count-card {
+  width: 450px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: white;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.168627451);
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.dash-cont .count-card-cont .count-card h3 {
+  color: #b648f2;
+}
 
 .report-card-cont {
   display: flex;
@@ -272,4 +291,25 @@ body {
 .showForm {
   opacity: 1;
   pointer-events: all;
+}
+
+.search-form-style input {
+  width: 200px;
+  padding: 10px 5px;
+  outline: none;
+  border: 2px solid grey;
+  border-radius: 10px;
+}
+.search-form-style input:focus {
+  border: 2px solid #b648f2;
+  color: #b648f2;
+}
+.search-form-style button {
+  background: #b648f2;
+  height: 100%;
+  padding: 10px 5px;
+  width: 120px;
+  color: white;
+  border: none;
+  border-radius: 10px;
 }/*# sourceMappingURL=style.css.map */

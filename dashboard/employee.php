@@ -101,6 +101,12 @@ if (isset($_POST['del'])) {
                 <button name="add">add candidate</button>
             </form>
         </div>
+        <div>
+            <form action="" class="search-form-style" >
+                <input type="search" placeholder="search by name">
+                <button>search</button>
+            </form>
+        </div>
         <?php if ($empCount > 0) { ?>
             <table class="table-style">
                 <tr>

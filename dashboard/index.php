@@ -1,5 +1,5 @@
 <?php
-include("../auth/auth.php")
+include("../auth/auth.php");
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,21 @@ include("../auth/auth.php")
 </head>
 <body>
     <?php include('../components/navbar.php') ?>
-    <h1><?php echo $user ?></h1>
+   <div class="dash-cont" >
+    <div class="count-card-cont" >
+        <div class="count-card" >
+            <h1>14</h1>
+            <h3>present employee </h3>
+        </div>
+        <div class="count-card" >
+            <h1>7</h1>
+            <h3>late employee</h3>
+        </div>
+        <div class="count-card" >
+            <h1>9</h1>
+            <h3>absent employee</h3>
+        </div>
+    </div>
+   </div>
 </body>
 </html>
